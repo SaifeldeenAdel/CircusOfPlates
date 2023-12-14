@@ -13,3 +13,8 @@ First Steps:
 - Find images of plates, pots, etc and figure out how to efficiently load as they asked
 - Render the clown at the bottom of the screen and control the clown with keyboard
 - Generate random shapes and move them (either across the screen or falling down)
+
+
+Notes
+- Level strategies, each shape will have a difficulty level? Or the whole circus and when we call difficulty.move(), it will behave differently according to the difficulty
+- Falling and Moving states to handle different movements of shapes (implements Shape State class)

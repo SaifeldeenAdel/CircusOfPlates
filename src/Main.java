@@ -1,11 +1,13 @@
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import view.Circus;
+import view.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
+        MainMenu main = new MainMenu();
 //        JMenuBar menuBar = new JMenuBar();
 //
 //        JMenu menu = new JMenu("File");
@@ -17,8 +19,8 @@ public class Main {
 //        menu.add(pauseMenuItem);
 //        menu.add(resumeMenuItem);
 //        menuBar.add(menu);
-
-        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", Circus.getInstance(), Color.WHITE);
+//
+//        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", Circus.getInstance(), menuBar, Color.WHITE);
 
     }
 }
