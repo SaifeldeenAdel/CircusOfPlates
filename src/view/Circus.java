@@ -63,6 +63,7 @@ public class Circus implements World {
 
     @Override
     public boolean refresh() {
+        System.out.println("here");
         return false;
     }
 
@@ -73,7 +74,7 @@ public class Circus implements World {
 
     @Override
     public int getSpeed() {
-        return 0;
+        return 100;
     }
 
     @Override

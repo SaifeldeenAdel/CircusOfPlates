@@ -43,4 +43,7 @@ public class Shape implements GameObject {
     public BufferedImage[] getSpriteImages() {
         return new BufferedImage[0];
     }
+//    private ShapeState state;
+//    private Color color;
+
 }
