@@ -1,4 +1,5 @@
 import eg.edu.alexu.csd.oop.game.GameEngine;
+import model.Levels;
 import view.Circus;
 import view.MainMenu;
 
@@ -20,7 +21,7 @@ public class Main {
 //        menu.add(resumeMenuItem);
 //        menuBar.add(menu);
 //
-//        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", Circus.getInstance(), menuBar, Color.WHITE);
+//        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", new Circus(Levels.EASY), Color.WHITE);
 
     }
 }

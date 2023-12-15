@@ -11,11 +11,11 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 public class ImageObject implements GameObject{
     private static final int MAX_MSTATE = 1;
     // an array of sprite images that are drawn sequentially
-    protected BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
-    protected int width;
-    protected int height;
-    protected int x;
-    protected int y;
+    private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
+    private int width;
+    private int height;
+    private int x;
+    private int y;
     private boolean visible;
 
     public ImageObject(int posX, int posY, String path, int width, int height){
