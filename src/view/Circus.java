@@ -40,13 +40,17 @@ public class Circus implements World {
     public void initializeClown(){
         int clownWidth = (int) Math.round(height * 0.35);
         int clownHeight = (int) Math.round(height * 0.37);
-        clown = new Clown((int) Math.round(width / 2.0)-(clownWidth /2), height-clownHeight-15, clownWidth, clownHeight , this);
+        clown = new Clown((int) Math.round(width / 2.0)-(clownWidth /2), height-clownHeight-15, clownWidth, clownHeight);
         clown.getScoreManager().addObserver(score);
         this.getControlableObjects().add(clown);
     }
 
     public boolean outOfWorld(Shape s){
         return s.getY() > this.getHeight();
+    }
+
+    public Levels getLevel() {
+        return level;
     }
 
     @Override
@@ -83,10 +87,14 @@ public class Circus implements World {
             for(GameObject moving: movableObjects){
                 Shape shape = (Shape) moving;
                 shape.getState().move(shape);
-                if(clown.intersectsLeftStack(shape)){
-//                clown.addToLeftStack(shape)
-                }else if(clown.intersectsRightStack(shape)){
-//                clown.addToRightStack(shape)
+                if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
+                    clown.addToStack(shape, clown.getLeftStackCenter());
+                    getMovableObjects().remove(shape);
+                    getControlableObjects().add(shape);
+                }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
+                    clown.addToStack(shape, clown.getRightStackCenter());
+                    getMovableObjects().remove(shape);
+                    getControlableObjects().add(shape);
                 } else if(outOfWorld(shape)){
 //                pool.queueShape(shape)
                 }
