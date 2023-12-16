@@ -3,7 +3,10 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 
 import java.awt.image.BufferedImage;
 
-public class Shape implements GameObject {
+public abstract class Shape implements GameObject {
+    private ShapeState state;
+    private ShapeColor color;
+
     @Override
     public int getX() {
         return 0;
@@ -43,7 +46,12 @@ public class Shape implements GameObject {
     public BufferedImage[] getSpriteImages() {
         return new BufferedImage[0];
     }
-//    private ShapeState state;
-//    private Color color;
 
+    public ShapeState getState() {
+        return state;
+    }
+
+    public void setState(ShapeState state) {
+        this.state = state;
+    }
 }

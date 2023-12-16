@@ -5,6 +5,7 @@ import eg.edu.alexu.csd.oop.game.World;
 import model.Clown;
 import model.Levels;
 import model.ScoreListener;
+import model.Shape;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +45,10 @@ public class Circus implements World {
         this.getControlableObjects().add(clown);
     }
 
+    public boolean outOfWorld(Shape s){
+        return s.getY() > this.getHeight();
+    }
+
     @Override
     public List<GameObject> getConstantObjects() {
         return constantObjects;
@@ -71,11 +76,24 @@ public class Circus implements World {
 
     @Override
     public boolean refresh() {
-        boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
+        boolean timeout = score.getScore() == MAX_SCORE || System.currentTimeMillis() - startTime > MAX_TIME;
         if(!timeout){
             endTime = System.currentTimeMillis();
+
+            for(GameObject moving: movableObjects){
+                Shape shape = (Shape) moving;
+                shape.getState().move(shape);
+                if(clown.intersectsLeftStack(shape)){
+//                clown.addToLeftStack(shape)
+                }else if(clown.intersectsRightStack(shape)){
+//                clown.addToRightStack(shape)
+                } else if(outOfWorld(shape)){
+//                pool.queueShape(shape)
+                }
+            }
         }
-        return true;
+
+        return !timeout;
     }
 
     @Override

@@ -29,6 +29,22 @@ public class Clown extends ImageObject implements GameObject{
         return new Point(this.getX() + this.getWidth() - 5,this.getY());
     }
 
+    public boolean intersectsLeftStack(Shape s){
+        return false;
+    }
+
+    public boolean intersectsRightStack(Shape s){
+        return false;
+    }
+
+    public void addToLeftStack(Shape s){
+
+    }
+
+    public void addToRightStack(Shape s){
+
+    }
+
 //    public void addToWorld(){
 //        this.circus.getControlableObjects().add(this);
 //    }
