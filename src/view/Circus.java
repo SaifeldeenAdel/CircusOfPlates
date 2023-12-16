@@ -4,6 +4,7 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import model.Clown;
 import model.Levels;
+import model.ScoreListener;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,19 +14,21 @@ public class Circus implements World {
     private List<GameObject> movableObjects = new LinkedList<GameObject>();
     private List<GameObject> controllableObjects = new LinkedList<GameObject>();
     private static int MAX_TIME = 1 * 60 * 1000;	// 1 minute
+    private static int MAX_SCORE = 5;	// 1 minute
     private long endTime = System.currentTimeMillis(), startTime = System.currentTimeMillis();
     private final int width;
     private final int height;
     private Levels level;
     private Clown clown;
+    private ScoreListener score;
 
     private Circus(int screenWidth, int screenHeight, Levels level)  {
         this.level = level;
         this.width = screenWidth;
         this.height = screenHeight;
+        this.score = new ScoreListener(5);
         initializeClown();
 //        initializeBars();
-
     }
 
     public Circus(Levels level){
@@ -37,6 +40,7 @@ public class Circus implements World {
         int clownWidth = (int) Math.round(height * 0.35);
         int clownHeight = (int) Math.round(height * 0.37);
         clown = new Clown((int) Math.round(width / 2.0)-(clownWidth /2), height-clownHeight-15, clownWidth, clownHeight , this);
+        clown.getScoreManager().addObserver(score);
         this.getControlableObjects().add(clown);
     }
 
@@ -76,7 +80,7 @@ public class Circus implements World {
 
     @Override
     public String getStatus() {
-        return "Time=" + Math.max(0, (MAX_TIME - (endTime-startTime))/1000);
+        return "Score: " + score.getScore() + "   |    " + "Time: " + Math.max(0, (MAX_TIME - (endTime-startTime))/1000);
     }
 
     @Override

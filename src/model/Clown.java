@@ -5,14 +5,18 @@ import view.Circus;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Clown extends ImageObject implements GameObject{
     private BufferedImage image;
     private Circus circus;
+    private ScoreManager scoreManager;
+    private int score;
 
     public Clown(int x, int y, int width, int height, Circus circus){
         super(x,y,"/clown.png", width, height);
         this.circus = circus;
+        this.scoreManager = new ScoreManager();
         System.out.println(getX() + " " + getY());
 
     }
@@ -33,4 +37,15 @@ public class Clown extends ImageObject implements GameObject{
     public void setY(int mY) {
         return;
     }
+
+    @Override
+    public void setX(int mY) {
+        this.scoreManager.notifyObservers();
+    }
+
+    public ScoreManager getScoreManager() {
+        return scoreManager;
+    }
+
+
 }
