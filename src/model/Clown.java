@@ -54,10 +54,10 @@ public class Clown extends ImageObject implements GameObject{
         return;
     }
 
-    @Override
-    public void setX(int mY) {
-        this.scoreManager.notifyObservers();
-    }
+//    @Override
+//    public void setX(int mY) {
+//        this.scoreManager.notifyObservers();
+//    }
 
     public ScoreManager getScoreManager() {
         return scoreManager;
