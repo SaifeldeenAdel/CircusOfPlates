@@ -22,6 +22,7 @@ public class Circus implements World {
     private ScoreListener score;
 
     private Queue<Shape> shapesQueue;
+    private ShapePool shapePool;
 
 
     private Circus(int screenWidth, int screenHeight, Difficulty level)  {
@@ -29,6 +30,7 @@ public class Circus implements World {
         this.width = screenWidth;
         this.height = screenHeight;
         this.score = new ScoreListener(5);
+        this.shapePool = new ShapePool(width, height, endTime);
         initializeClown();
 //        initializeBars();
         shapesQueue = new LinkedList<>();

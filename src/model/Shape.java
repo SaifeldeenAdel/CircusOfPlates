@@ -3,9 +3,15 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Shape implements GameObject {
+public abstract class Shape extends ImageObject  implements GameObject {
     private ShapeState state;
     private ShapeColor color;
+
+    public Shape(int posX, int posY, BufferedImage[] images, ShapeState state, ShapeColor color){
+        super(posX, posY, images);
+        this.state = state;
+        this.color = color;
+    }
 
     @Override
     public int getX() {
