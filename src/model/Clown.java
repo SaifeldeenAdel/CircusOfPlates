@@ -14,8 +14,8 @@ public class Clown extends ImageObject implements GameObject{
     private ScoreManager scoreManager;
     private int score;
 
-    private Stack<Shape> leftStack = null;
-    private Stack<Shape> rightStack = null;
+    private Stack<Shape> leftStack;
+    private Stack<Shape> rightStack;
 
     public Clown(int x, int y, int width, int height){
         super(x,y,"/clown.png", width, height);
@@ -64,13 +64,26 @@ public class Clown extends ImageObject implements GameObject{
         s.setY(stackCenter.y - s.getHeight());
     }
 
-    public void addToLeftStack(Shape s){ //or concatenate both methods and send stack as a parameter
-        leftStack.push(s);
-    }
-    public void addToRightStack(Shape s) {
-        rightStack.push(s);
+    public void addToStack(Shape s, ClownStack stack){
+        if(stack == ClownStack.LEFT)
+            leftStack.push(s);
+        else
+            rightStack.push(s);
     }
 
+    public void removeFromStack(ClownStack stack) { //put them in object pool maybe?
+        if(stack == ClownStack.LEFT) {
+            leftStack.pop();
+            leftStack.pop();
+            leftStack.pop();
+        }
+        else {
+            rightStack.pop();
+            rightStack.pop();
+            rightStack.pop();
+        }
+        this.score++;
+    }
 
     @Override
     public void setY(int mY) {

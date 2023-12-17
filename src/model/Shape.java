@@ -51,6 +51,10 @@ public abstract class Shape implements GameObject {
         return state;
     }
 
+    public ShapeColor getColor() {
+        return color;
+    }
+
     public void setState(ShapeState state) {
         this.state = state;
     }
