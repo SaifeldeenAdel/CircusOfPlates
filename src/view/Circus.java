@@ -106,7 +106,7 @@ public class Circus implements World {
                     //check last 3 shapes' colors
 
                 } else if(outOfWorld(shape)){
-//                pool.queueShape(shape)
+                    shapePool.queueShape(shape,System.currentTimeMillis());
                 }
             }
         }
