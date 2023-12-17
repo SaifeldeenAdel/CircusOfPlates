@@ -2,16 +2,14 @@ package view;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
-import model.Clown;
-import model.Levels;
-import model.ScoreListener;
-import model.Shape;
+import model.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Circus implements World {
-    private List<GameObject> constantObjects = new LinkedList<GameObject>();
+    private List<GameObject> constantObjects = new LinkedList<>();
     private List<GameObject> movableObjects = new LinkedList<GameObject>();
     private List<GameObject> controllableObjects = new LinkedList<GameObject>();
     private static int MAX_TIME = 1 * 60 * 1000;	// 1 minute
@@ -23,6 +21,9 @@ public class Circus implements World {
     private Clown clown;
     private ScoreListener score;
 
+    private Queue<Shape> shapesQueue;
+
+
     private Circus(int screenWidth, int screenHeight, Levels level)  {
         this.level = level;
         this.width = screenWidth;
@@ -30,6 +31,7 @@ public class Circus implements World {
         this.score = new ScoreListener(5);
         initializeClown();
 //        initializeBars();
+        shapesQueue = new LinkedList<>();
     }
 
     public Circus(Levels level){
@@ -88,13 +90,19 @@ public class Circus implements World {
                 Shape shape = (Shape) moving;
                 shape.getState().move(shape);
                 if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
-                    clown.addToStack(shape, clown.getLeftStackCenter());
+                    clown.addToStackCenter(shape, clown.getLeftStackCenter());
+                    clown.addToStack(shape, ClownStack.LEFT);
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
+                    //check last 3 shapes' colors
+
                 }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
-                    clown.addToStack(shape, clown.getRightStackCenter());
+                    clown.addToStackCenter(shape, clown.getRightStackCenter());
+                    clown.addToStack(shape, ClownStack.RIGHT);
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
+                    //check last 3 shapes' colors
+
                 } else if(outOfWorld(shape)){
 //                pool.queueShape(shape)
                 }
