@@ -1,7 +1,7 @@
 package view;
 
 import eg.edu.alexu.csd.oop.game.GameEngine;
-import model.Levels;
+import model.Difficulty;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,11 +26,11 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (easyButton.isSelected()){
-                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Levels.EASY),3);
+                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.EASY),3);
                 } else if (mediumButton.isSelected()){
-                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Levels.MEDIUM),3);
+                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.MEDIUM),3);
                 }else if (hardButton.isSelected()){
-                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Levels.HARD),3);
+                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.HARD),3);
                 }
             }
         });

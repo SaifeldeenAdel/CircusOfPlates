@@ -1,10 +1,4 @@
-import eg.edu.alexu.csd.oop.game.GameEngine;
-import model.Levels;
-import view.Circus;
 import view.MainMenu;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {

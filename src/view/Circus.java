@@ -17,14 +17,14 @@ public class Circus implements World {
     private long endTime = System.currentTimeMillis(), startTime = System.currentTimeMillis();
     private final int width;
     private final int height;
-    private Levels level;
+    private Difficulty level;
     private Clown clown;
     private ScoreListener score;
 
     private Queue<Shape> shapesQueue;
 
 
-    private Circus(int screenWidth, int screenHeight, Levels level)  {
+    private Circus(int screenWidth, int screenHeight, Difficulty level)  {
         this.level = level;
         this.width = screenWidth;
         this.height = screenHeight;
@@ -34,7 +34,7 @@ public class Circus implements World {
         shapesQueue = new LinkedList<>();
     }
 
-    public Circus(Levels level){
+    public Circus(Difficulty level){
         this(900, 700, level);
     }
 
@@ -51,7 +51,7 @@ public class Circus implements World {
         return s.getY() > this.getHeight();
     }
 
-    public Levels getLevel() {
+    public Difficulty getLevel() {
         return level;
     }
 
@@ -91,14 +91,14 @@ public class Circus implements World {
                 shape.getState().move(shape);
                 if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
                     clown.addToStackCenter(shape, clown.getLeftStackCenter());
-                    clown.addToStack(shape, ClownStack.LEFT);
+                    clown.addToStack(shape, clown.getLeftStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
                     //check last 3 shapes' colors
 
                 }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
                     clown.addToStackCenter(shape, clown.getRightStackCenter());
-                    clown.addToStack(shape, ClownStack.RIGHT);
+                    clown.addToStack(shape, clown.getRightStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
                     //check last 3 shapes' colors

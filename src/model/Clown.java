@@ -6,6 +6,7 @@ import view.Circus;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
+import java.util.List;
 
 public class Clown extends ImageObject implements GameObject{
     private Point leftStackCenter;
@@ -26,6 +27,14 @@ public class Clown extends ImageObject implements GameObject{
         rightStack = new Stack<>();
 
 
+    }
+
+    public Stack<Shape> getLeftStack() {
+        return leftStack;
+    }
+
+    public Stack<Shape> getRightStack() {
+        return rightStack;
     }
 
     public Point getLeftStackCenter(){
@@ -64,25 +73,32 @@ public class Clown extends ImageObject implements GameObject{
         s.setY(stackCenter.y - s.getHeight());
     }
 
-    public void addToStack(Shape s, ClownStack stack){
-        if(stack == ClownStack.LEFT)
-            leftStack.push(s);
-        else
-            rightStack.push(s);
+    public boolean shouldScore(Shape s, Stack<Shape> stack){
+        List<Shape> lastTwo = stack.subList(stack.size()-2,stack.size());
+        ShapeColor color = s.getColor();
+        for(Shape shape: lastTwo){
+            if(s.getColor() != color){
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void removeFromStack(ClownStack stack) { //put them in object pool maybe?
-        if(stack == ClownStack.LEFT) {
-            leftStack.pop();
-            leftStack.pop();
-            leftStack.pop();
+
+    public void addToStack(Shape s, Stack<Shape> stack){
+        if(shouldScore(s, stack)){
+            removeFromStack(stack);
+        } else {
+            stack.push(s);
         }
-        else {
-            rightStack.pop();
-            rightStack.pop();
-            rightStack.pop();
+    }
+
+    public void removeFromStack(Stack<Shape> stack) { //put them in object pool maybe?
+        for(int i =0; i<3; i++){
+            Shape s = stack.pop();
+//            pool.queueShape(s);
         }
-        this.score++;
+        scoreManager.notifyObservers();
     }
 
     @Override
