@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Circus implements World {
-    private List<GameObject> constantObjects = new LinkedList<GameObject>();
+    private List<GameObject> constantObjects = new LinkedList<>();
     private List<GameObject> movableObjects = new LinkedList<GameObject>();
     private List<GameObject> controllableObjects = new LinkedList<GameObject>();
     private static int MAX_TIME = 1 * 60 * 1000;	// 1 minute
@@ -88,13 +88,19 @@ public class Circus implements World {
                 Shape shape = (Shape) moving;
                 shape.getState().move(shape);
                 if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
-                    clown.addToStack(shape, clown.getLeftStackCenter());
+                    clown.addToStackCenter(shape, clown.getLeftStackCenter());
+                    clown.addToLeftStack(shape);
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
+                    //check last 3 shapes' colors
+
                 }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
-                    clown.addToStack(shape, clown.getRightStackCenter());
+                    clown.addToStackCenter(shape, clown.getRightStackCenter());
+                    clown.addToRightStack(shape);
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
+                    //check last 3 shapes' colors
+
                 } else if(outOfWorld(shape)){
 //                pool.queueShape(shape)
                 }

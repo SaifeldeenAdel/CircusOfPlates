@@ -5,6 +5,7 @@ import view.Circus;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 public class Clown extends ImageObject implements GameObject{
     private Point leftStackCenter;
@@ -13,10 +14,17 @@ public class Clown extends ImageObject implements GameObject{
     private ScoreManager scoreManager;
     private int score;
 
+    private Stack<Shape> leftStack = null;
+    private Stack<Shape> rightStack = null;
+
     public Clown(int x, int y, int width, int height){
         super(x,y,"/clown.png", width, height);
         this.scoreManager = new ScoreManager();
         System.out.println(getX() + " " + getY());
+
+        leftStack = new Stack<>();
+        rightStack = new Stack<>();
+
 
     }
 
@@ -52,9 +60,17 @@ public class Clown extends ImageObject implements GameObject{
         return true;
     }
 
-    public void addToStack(Shape s, Point stackCenter){
+    public void addToStackCenter(Shape s, Point stackCenter){
         s.setY(stackCenter.y - s.getHeight());
     }
+
+    public void addToLeftStack(Shape s){ //or concatenate both methods and send stack as a parameter
+        leftStack.push(s);
+    }
+    public void addToRightStack(Shape s) {
+        rightStack.push(s);
+    }
+
 
     @Override
     public void setY(int mY) {
