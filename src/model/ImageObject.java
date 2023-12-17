@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
 
 import javax.imageio.ImageIO;
 
@@ -30,6 +31,14 @@ public class ImageObject implements GameObject{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public ImageObject(int posX, int posY, BufferedImage[] images){
+        this.x = posX;
+        this.y = posY;
+        width = images[0].getWidth();
+        height = images[0].getHeight();
+        this.visible = true;
     }
 
     private BufferedImage createScaledImage(Image image, int scaledWidth, int scaledHeight){

@@ -11,7 +11,6 @@ import java.util.List;
 public class Clown extends ImageObject implements GameObject{
     private Point leftStackCenter;
     private Point rightStackCenter;
-    private BufferedImage image;
     private ScoreManager scoreManager;
     private int score;
 
