@@ -20,8 +20,7 @@ public class Circus implements World {
     private Difficulty level;
     private Clown clown;
     private ScoreListener score;
-
-    private Queue<Shape> shapesQueue;
+    private ShapePool pool;
 
 
     private Circus(int screenWidth, int screenHeight, Difficulty level)  {
@@ -30,8 +29,8 @@ public class Circus implements World {
         this.height = screenHeight;
         this.score = new ScoreListener(5);
         initializeClown();
+        initializeShapes();
 //        initializeBars();
-        shapesQueue = new LinkedList<>();
     }
 
     public Circus(Difficulty level){
@@ -45,6 +44,13 @@ public class Circus implements World {
         clown = new Clown((int) Math.round(width / 2.0)-(clownWidth /2), height-clownHeight-15, clownWidth, clownHeight);
         clown.getScoreManager().addObserver(score);
         this.getControlableObjects().add(clown);
+    }
+
+    public void initializeShapes(){
+        for(int i=0; i< 5; i++){
+            Shape s = pool.getQueuedShape();
+            getMovableObjects().add(s);
+        }
     }
 
     public boolean outOfWorld(Shape s){
