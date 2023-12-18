@@ -36,6 +36,7 @@ public class ImageObject implements GameObject{
     public ImageObject(int posX, int posY, BufferedImage[] images){
         this.x = posX;
         this.y = posY;
+        spriteImages = images;
         width = images[0].getWidth();
         height = images[0].getHeight();
         this.visible = true;
