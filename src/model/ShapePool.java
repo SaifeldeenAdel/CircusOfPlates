@@ -1,35 +1,62 @@
 package model;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class ShapePool {
-    private int width;
-    private int height;
-    private long endTime;
+    private int screenWidth;
+    private int screenHeight;
+    private long deathTime;
+    private Random random ;
     private Shape randomShape;
-    private ConcurrentLinkedQueue<Shape> inUse;
-    private ConcurrentLinkedQueue<Shape> queued;
+    private HashMap<Shape,Long> inUse;
+    private HashMap<Shape,Long> queued;
 
-    public ShapePool(int width, int height){
-        this.width= width;
-        this.height = height;
-        inUse = new ConcurrentLinkedQueue<>();
-        queued = new ConcurrentLinkedQueue<>();
+    public ShapePool(int screenWidth, int screenHeight, long deathTime){
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        this.deathTime = this.deathTime;
+        random = new Random();
+        inUse = new HashMap<>();
+        queued = new HashMap<>();
     }
 
     public synchronized Shape getQueuedShape(){
-        if(!inUse.isEmpty()){
-            //iterate over queue
-            //use object's geY to check if == height (?)
-            // store in queued
+        long shapeTime = System.currentTimeMillis();
+        if(!queued.isEmpty())
+        {
+            for(Map.Entry<Shape,Long> set : queued.entrySet()){
+                if(set.getValue()>= deathTime)
+                {
+                    queued.remove(set);
+                }
+                else{
+                    int randValueX = random.nextInt(screenHeight, screenWidth);
+                    int randValueY = random.nextInt(screenHeight, screenWidth);
+                    Shape shape = set.getKey();
+                    shape.setX(randValueX);
+                    shape.setY(randValueY);
+                    queued.remove(set);
+                    inUse.put(shape,shapeTime);
+                    return shape;
+                }
+            }
         }
-        setNewShapeObject();
+        randomShape = setNewShapeObject();
+        inUse.put(randomShape,shapeTime);
         return randomShape;
     }
-    public void setNewShapeObject(){
-        //
+    public Shape setNewShapeObject(){
+        int randValueX = random.nextInt(screenHeight, screenWidth);
+        int randValueY = random.nextInt(screenHeight, screenWidth);
+        Shape newShape = ShapeFactory.getInstance().getRandomShape();
+        newShape.setX(randValueX);
+        newShape.setY(randValueY);
+        return newShape;
     }
-    public void queueShape(){
-
+    public void queueShape(Shape shape){
+        inUse.remove(shape);
+        queued.put(shape,System.currentTimeMillis());
     }
 }

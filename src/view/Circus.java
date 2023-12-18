@@ -13,7 +13,8 @@ public class Circus implements World {
     private List<GameObject> movableObjects = new LinkedList<GameObject>();
     private List<GameObject> controllableObjects = new LinkedList<GameObject>();
     private static int MAX_TIME = 1 * 60 * 1000;	// 1 minute
-    private static int MAX_SCORE = 5;	// 1 minute
+    private static int MAX_SCORE = 5;
+    private static long SHAPE_DEATH = 10*1000;	// 1 minute
     private long endTime = System.currentTimeMillis(), startTime = System.currentTimeMillis();
     private final int width;
     private final int height;
@@ -28,8 +29,9 @@ public class Circus implements World {
         this.width = screenWidth;
         this.height = screenHeight;
         this.score = new ScoreListener(5);
+        this.pool = new ShapePool(width, height, SHAPE_DEATH);
         initializeClown();
-        initializeShapes();
+//        initializeShapes();
 //        initializeBars();
     }
 
@@ -110,7 +112,7 @@ public class Circus implements World {
                     //check last 3 shapes' colors
 
                 } else if(outOfWorld(shape)){
-//                pool.queueShape(shape)
+                    pool.queueShape(shape);
                 }
             }
         }
