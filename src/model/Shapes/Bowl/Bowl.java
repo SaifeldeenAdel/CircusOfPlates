@@ -6,7 +6,7 @@ import model.ShapeState;
 import java.awt.image.BufferedImage;
 
 public class Bowl extends Shape {
-    public Bowl(int posX, int posY, BufferedImage[] images, ShapeState state, ShapeColor color) {
-        super(posX, posY, images, state, color);
+    public Bowl(int posX, int posY, BufferedImage[] images, ShapeColor color) {
+        super(posX, posY, images, color);
     }
 }

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class Plate extends Shape {
 
-    public Plate(int posX, int posY, BufferedImage[] images, ShapeState state, ShapeColor color) {
-        super(posX, posY, images, state, color);
+    public Plate(int posX, int posY, BufferedImage[] images, ShapeColor color) {
+        super(posX, posY, images, color);
     }
 }

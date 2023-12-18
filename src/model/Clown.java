@@ -21,10 +21,10 @@ public class Clown extends ImageObject implements GameObject{
         super(x,y,"/clown.png", width, height);
         this.scoreManager = new ScoreManager();
         System.out.println(getX() + " " + getY());
-
+        leftStackCenter = new Point(x+5, y);
+        rightStackCenter = new Point(x+width-5, y);
         leftStack = new Stack<>();
         rightStack = new Stack<>();
-
 
     }
 

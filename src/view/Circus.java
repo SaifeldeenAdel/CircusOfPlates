@@ -31,7 +31,7 @@ public class Circus implements World {
         this.score = new ScoreListener(5);
         this.pool = new ShapePool(width, height, SHAPE_DEATH);
         initializeClown();
-//        initializeShapes();
+        initializeShapes();
 //        initializeBars();
     }
 

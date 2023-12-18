@@ -48,12 +48,10 @@ public class ShapePool {
         return randomShape;
     }
     public Shape setNewShapeObject(){
-        int randValueX = random.nextInt(screenHeight, screenWidth);
-        int randValueY = random.nextInt(screenHeight, screenWidth);
-        Shape newShape = ShapeFactory.getInstance().getRandomShape();
-        newShape.setX(randValueX);
-        newShape.setY(randValueY);
-        return newShape;
+        int randValueX = random.nextInt(0, screenWidth);
+        int randValueY = random.nextInt(0, screenHeight);
+        System.out.println(randValueX + " " + randValueY);
+        return ShapeFactory.getInstance().getRandomShape(randValueX, randValueY);
     }
     public void queueShape(Shape shape){
         inUse.remove(shape);

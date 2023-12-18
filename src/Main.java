@@ -1,4 +1,10 @@
+import eg.edu.alexu.csd.oop.game.GameEngine;
+import model.Difficulty;
+import model.ShapeColor;
+import view.Circus;
 import view.MainMenu;
+
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +21,7 @@ public class Main {
 //        menu.add(resumeMenuItem);
 //        menuBar.add(menu);
 //
-//        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", new Circus(Levels.EASY), Color.WHITE);
+//        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", new Circus(Difficulty.EASY), Color.WHITE);
 
     }
 }

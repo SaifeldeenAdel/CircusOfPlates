@@ -109,7 +109,6 @@ public class ShapeLoader {
                 BufferedImage[] images = map.get(cls);
                 map.put(cls, Arrays.copyOf(images, images.length + 1));
                 map.get(cls)[images.length] = bufferedImage;
-                System.out.println(bufferedImage.getWidth());
             } else {
                 map.put(cls, new BufferedImage[]{bufferedImage});
             }
