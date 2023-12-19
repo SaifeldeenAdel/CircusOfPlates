@@ -12,8 +12,6 @@ public class Clown extends ImageObject implements GameObject{
     private Point leftStackCenter;
     private Point rightStackCenter;
     private ScoreManager scoreManager;
-    private int score;
-
     private Stack<Shape> leftStack;
     private Stack<Shape> rightStack;
 
@@ -25,7 +23,21 @@ public class Clown extends ImageObject implements GameObject{
         rightStackCenter = new Point(x+width-5, y);
         leftStack = new Stack<>();
         rightStack = new Stack<>();
+    }
 
+    public void refreshStackCenters(){
+        if(getLeftStack().isEmpty()){
+            setLeftStackCenter(new Point(getX() +5, getY()));
+        } else {
+            Shape top = getLeftStack().peek();
+            setLeftStackCenter(new Point(top.getX() + top.getWidth()/2, top.getY()));
+        }
+        if(getRightStack().isEmpty()){
+            setRightStackCenter(new Point(getX()+getWidth()-5, getY()));
+        } else {
+            Shape top = getRightStack().peek();
+            setRightStackCenter(new Point(top.getX() + top.getWidth()/2, top.getY()));
+        }
     }
 
     public Stack<Shape> getLeftStack() {
@@ -73,28 +85,35 @@ public class Clown extends ImageObject implements GameObject{
     }
 
     public boolean shouldScore(Shape s, Stack<Shape> stack){
-        List<Shape> lastTwo = stack.subList(stack.size()-2,stack.size());
-        ShapeColor color = s.getColor();
-        for(Shape shape: lastTwo){
-            if(s.getColor() != color){
-                return false;
+        if (stack.size()>=2){
+            List<Shape> lastTwo = stack.subList(stack.size()-2,stack.size());
+            ShapeColor color = s.getColor();
+            for(Shape shape: lastTwo){
+                if(shape.getColor() != color){
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
 
     public void addToStack(Shape s, Stack<Shape> stack){
+        System.out.println(shouldScore(s, stack));
         if(shouldScore(s, stack)){
+            s.setVisible(false);
             removeFromStack(stack);
+            refreshStackCenters();
         } else {
             stack.push(s);
         }
     }
 
     public void removeFromStack(Stack<Shape> stack) { //put them in object pool maybe?
-        for(int i =0; i<3; i++){
+        for(int i =0; i<2; i++){
             Shape s = stack.pop();
+            s.setVisible(false);
 //            pool.queueShape(s);
         }
         scoreManager.notifyObservers();

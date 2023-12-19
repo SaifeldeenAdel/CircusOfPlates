@@ -4,6 +4,7 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import model.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -14,8 +15,10 @@ public class Circus implements World {
     private List<GameObject> controllableObjects = new LinkedList<GameObject>();
     private static int MAX_TIME = 1 * 60 * 1000;	// 1 minute
     private static int MAX_SCORE = 5;
-    private static long SHAPE_DEATH = 10*1000;	// 1 minute
+    private static int WAVE_INTERVAL = 5*1000;	// 3 seconds
+    private static long SHAPE_DEATH = 10*1000;	// 10 seconds
     private long endTime = System.currentTimeMillis(), startTime = System.currentTimeMillis();
+    private long lastWave;
     private final int width;
     private final int height;
     private Difficulty level;
@@ -53,6 +56,7 @@ public class Circus implements World {
             Shape s = pool.getQueuedShape();
             getMovableObjects().add(s);
         }
+        lastWave = System.currentTimeMillis();
     }
 
     public boolean outOfWorld(Shape s){
@@ -90,12 +94,14 @@ public class Circus implements World {
 
     @Override
     public boolean refresh() {
+        List<GameObject> removedShapes = new ArrayList<>();
         boolean timeout = score.getScore() == MAX_SCORE || System.currentTimeMillis() - startTime > MAX_TIME;
         if(!timeout){
             endTime = System.currentTimeMillis();
+            clown.refreshStackCenters();
 
-            for(GameObject moving: movableObjects){
-                Shape shape = (Shape) moving;
+            for (int i = 0; i < movableObjects.size(); i++) {
+                Shape shape = (Shape) movableObjects.get(i);
                 shape.getState().move(shape);
                 if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
                     clown.addToStackCenter(shape, clown.getLeftStackCenter());
@@ -113,10 +119,17 @@ public class Circus implements World {
 
                 } else if(outOfWorld(shape)){
                     pool.queueShape(shape);
+                    removedShapes.add(shape);
                 }
             }
+            for (int i = 0; i < removedShapes.size(); i++) {
+                getMovableObjects().remove(removedShapes.get(i));
+            }
+            if(endTime - lastWave >= WAVE_INTERVAL){
+                lastWave = System.currentTimeMillis();
+                initializeShapes();
+            }
         }
-
         return !timeout;
     }
 

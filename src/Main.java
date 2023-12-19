@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        MainMenu main = new MainMenu();
+//        MainMenu main = new MainMenu();
 //        JMenuBar menuBar = new JMenuBar();
 //
 //        JMenu menu = new JMenu("File");
@@ -21,7 +21,7 @@ public class Main {
 //        menu.add(resumeMenuItem);
 //        menuBar.add(menu);
 //
-//        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", new Circus(Difficulty.EASY), Color.WHITE);
+        final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082", new Circus(Difficulty.EASY), Color.WHITE);
 
     }
 }

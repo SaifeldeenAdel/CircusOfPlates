@@ -44,7 +44,6 @@ public class ShapeFactory {
         } catch(Exception e){
             System.out.println(e);
         }
-        System.out.println(shape);
         return shape;
     }
 
