@@ -30,11 +30,12 @@ public class ShapePool {
                 if(set.getValue()>= deathTime)
                 {
                     queued.remove(set);
-                    System.out.println("died");
                 }
                 else{
-                    int randValueX = random.nextInt(screenHeight, screenWidth);
-                    int randValueY = random.nextInt(screenHeight, screenWidth);
+//                    int randValueX = random.nextInt(screenHeight, screenWidth);
+//                    int randValueY = random.nextInt(screenHeight, screenWidth);
+                    int randValueX = random.nextInt(50, screenWidth-50);
+                    int randValueY = random.nextInt(-1*screenHeight, 0);
                     Shape shape = set.getKey();
                     shape.setX(randValueX);
                     shape.setY(randValueY);
@@ -50,7 +51,7 @@ public class ShapePool {
     }
     public Shape setNewShapeObject(){
         int randValueX = random.nextInt(50, screenWidth-50);
-        int randValueY = random.nextInt(-1*(screenHeight/2), 0);
+        int randValueY = random.nextInt(-1*screenHeight, 0);
         return ShapeFactory.getInstance().getRandomShape(randValueX, randValueY);
     }
     public void queueShape(Shape shape){

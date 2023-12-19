@@ -15,7 +15,6 @@ public class Circus implements World {
     private List<GameObject> controllableObjects = new LinkedList<GameObject>();
     private static int MAX_TIME = 1 * 60 * 1000;	// 1 minute
     private static int MAX_SCORE = 5;
-    private static int WAVE_INTERVAL = 5*1000;	// 3 seconds
     private static long SHAPE_DEATH = 10*1000;	// 10 seconds
     private long endTime = System.currentTimeMillis(), startTime = System.currentTimeMillis();
     private long lastWave;
@@ -102,7 +101,7 @@ public class Circus implements World {
 
             for (int i = 0; i < movableObjects.size(); i++) {
                 Shape shape = (Shape) movableObjects.get(i);
-                shape.getState().move(shape);
+                shape.getState().move(shape, this.getLevel());
                 if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
                     clown.addToStackCenter(shape, clown.getLeftStackCenter());
                     clown.addToStack(shape, clown.getLeftStack());
@@ -125,7 +124,7 @@ public class Circus implements World {
             for (int i = 0; i < removedShapes.size(); i++) {
                 getMovableObjects().remove(removedShapes.get(i));
             }
-            if(endTime - lastWave >= WAVE_INTERVAL){
+            if(endTime - lastWave >= this.getLevel().getWaveInterval()* 1000L){
                 lastWave = System.currentTimeMillis();
                 initializeShapes();
             }

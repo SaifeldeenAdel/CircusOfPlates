@@ -25,9 +25,6 @@ public class ShapeFactory {
     }
 
     public Shape getRandomShape(int x, int y) {
-        Random rand = new Random();
-        int shapeChoice = rand.nextInt(mappedClasses.size());
-        // Generate a random index within the range of the map size
         Random random = new Random();
         int randomClassIndex = random.nextInt(mappedClasses.size());
         int randomImageIndex = random.nextInt(3);
@@ -36,10 +33,11 @@ public class ShapeFactory {
 
         Class<?> randomClass = keysArray[randomClassIndex];
         BufferedImage randomImage = mappedClasses.get(randomClass)[randomImageIndex];
+        ShapeColor color = randomImageIndex == 0 ? ShapeColor.GREEN : randomImageIndex == 1 ? ShapeColor.BLUE : ShapeColor.RED;
 
         Shape shape = null;
         try{
-            shape = (Shape) randomClass.getDeclaredConstructor(new Class[]{int.class, int.class, BufferedImage[].class, ShapeColor.class}).newInstance(new Object[]{x,y, new BufferedImage[]{randomImage},ShapeColor.RED});
+            shape = (Shape) randomClass.getDeclaredConstructor(new Class[]{int.class, int.class, BufferedImage[].class, ShapeColor.class}).newInstance(new Object[]{x,y, new BufferedImage[]{randomImage},color});
 
         } catch(Exception e){
             System.out.println(e);
