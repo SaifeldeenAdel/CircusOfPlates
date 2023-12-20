@@ -27,12 +27,13 @@ public class ShapeFactory {
     public Shape getRandomShape(int x, int y) {
         Random random = new Random();
         int randomClassIndex = random.nextInt(mappedClasses.size());
-        int randomImageIndex = random.nextInt(3);
 
         Class<?>[] keysArray = mappedClasses.keySet().toArray(new Class<?>[0]);
-
         Class<?> randomClass = keysArray[randomClassIndex];
+
+        int randomImageIndex = random.nextInt(mappedClasses.get(randomClass).length);
         BufferedImage randomImage = mappedClasses.get(randomClass)[randomImageIndex];
+        
         ShapeColor color = randomImageIndex == 0 ? ShapeColor.GREEN : randomImageIndex == 1 ? ShapeColor.BLUE : ShapeColor.RED;
 
         Shape shape = null;
