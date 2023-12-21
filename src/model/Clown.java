@@ -71,7 +71,7 @@ public class Clown extends ImageObject implements GameObject{
             return false;
         }
         // Y of shape is not close to Y of Left Center
-        if(Math.abs((s.getY() + s.getHeight()) - stackCenter.y) > 5){ // REPLACE 5 WITH LEVEL???!!!!
+        if(Math.abs((s.getY() + s.getHeight()) - stackCenter.y) > 5){ // REPLACE 5 WITH LEVEL???!!!! //probably needs to be modified
             return false;
         }
         // X of stack center is not within x of shape
