@@ -28,20 +28,13 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (easyButton.isSelected()){
-                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.EASY),0);
+                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.EASY),2);
                 } else if (mediumButton.isSelected()){
-                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.MEDIUM),0);
+                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.MEDIUM),2);
                 }else if (hardButton.isSelected()){
-                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.HARD),0);
+                    final GameEngine.GameController gameController = GameEngine.start("8139 8277 8082 7978", new Circus(Difficulty.HARD),2);
                 }
             }
         });
     }
 }
-//    addWindowListener(new WindowAdapter() {
-//        @Override
-//        public void windowClosing(WindowEvent e) {
-//            super.windowClosing(e);
-//            mainMenu.setVisible(true);
-//        }
-//    });
