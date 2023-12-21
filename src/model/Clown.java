@@ -88,6 +88,7 @@ public class Clown extends ImageObject implements GameObject{
         if (stack.size()>=2){
             List<Shape> lastTwo = stack.subList(stack.size()-2,stack.size());
             ShapeColor color = s.getColor();
+//            System.out.println(color);
             for(Shape shape: lastTwo){
                 if(shape.getColor() != color){
                     return false;
@@ -128,5 +129,9 @@ public class Clown extends ImageObject implements GameObject{
         return scoreManager;
     }
 
-
+    public boolean bombGameOver(Shape s){
+         if(s.getColor() == ShapeColor.BLACK)
+            return true;
+         return false;
+    }
 }
