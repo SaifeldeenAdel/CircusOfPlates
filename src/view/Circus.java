@@ -7,15 +7,14 @@ import model.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class Circus implements World {
     private List<GameObject> constantObjects = new LinkedList<>();
     private List<GameObject> movableObjects = new LinkedList<GameObject>();
     private List<GameObject> controllableObjects = new LinkedList<GameObject>();
-    private static int MAX_TIME = 1 * 60 * 1000;	// 1 minute
+    private static int MAX_TIME = 1 * 60 * 1000;    // 1 minute
     private static int MAX_SCORE = 5;
-    private static long SHAPE_DEATH = 10*1000;	// 10 seconds
+    private static long SHAPE_DEATH = 10*1000;    // 10 seconds
     private long endTime = System.currentTimeMillis(), startTime = System.currentTimeMillis();
     private long lastWave;
     private final int width;
@@ -93,11 +92,51 @@ public class Circus implements World {
 
     @Override
     public boolean refresh() {
+
+
+
+
         List<GameObject> removedShapes = new ArrayList<>();
         boolean timeout = score.getScore() == MAX_SCORE || System.currentTimeMillis() - startTime > MAX_TIME;
         if(!timeout){
             endTime = System.currentTimeMillis();
             clown.refreshStackCenters();
+
+
+            /* FIRST APPROACH */
+            /* Problem: doesn't work when re-adding shapes to controllable */
+
+//            if(clown.getLeftStackCenter().x <60 || clown.getRightStackCenter().x >840) { //hard-coded values
+//                System.out.println("3andena moshkela 3ayzeen ne7elaha");
+//
+//                    List<GameObject> toBeReturned = new LinkedList<>();
+//                    GameObject clownClone;
+//                    toBeReturned.addAll(this.controllableObjects);
+//                    clownClone = toBeReturned.get(0);
+//                    toBeReturned.remove(0);
+//                    this.getConstantObjects().addAll(toBeReturned);
+//                    this.getControlableObjects().removeAll(toBeReturned);
+//                    this.getControlableObjects().add(clownClone);
+//            }
+
+
+            /* SECOND APPROACH */
+            /* Working quite well "so far" */
+
+            if(clown.getLeftStackCenter().x <70) { //hard-coded value
+                for (GameObject controllableObject : this.controllableObjects) {
+                    controllableObject.setX(controllableObject.getX() + 10);
+                }
+            }
+
+            if(clown.getRightStackCenter().x > 820) { //hard-coded value
+                for (GameObject controllableObject : this.controllableObjects) {
+                    controllableObject.setX(controllableObject.getX() - 10);
+                }
+            }
+
+
+
 
             for (int i = 0; i < movableObjects.size(); i++) {
                 Shape shape = (Shape) movableObjects.get(i);

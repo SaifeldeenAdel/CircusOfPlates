@@ -15,6 +15,7 @@ public class Clown extends ImageObject implements GameObject{
     private Stack<Shape> leftStack;
     private Stack<Shape> rightStack;
 
+
     public Clown(int x, int y, int width, int height){
         super(x,y,"/clown.png", width, height);
         this.scoreManager = new ScoreManager();
