@@ -119,11 +119,19 @@ public class Circus implements World {
                 Shape shape = (Shape) movableObjects.get(i);
                 shape.getState().move(shape, this.getLevel());
                 if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
+
+                    System.out.println("Left Stack Shape Color: " + shape.getColor());
                     clown.addToStackCenter(shape, clown.getLeftStackCenter());
                     clown.addToStack(shape, clown.getLeftStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
                     //check last 3 shapes' colors
+
+                    System.out.println("Left Stack Shape Color: " + shape.getColor());
+                    if(clown.bombGameOver(shape))
+                    {
+                        return timeout;
+                    }
 
                 }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
                     clown.addToStackCenter(shape, clown.getRightStackCenter());
@@ -132,10 +140,17 @@ public class Circus implements World {
                     getControlableObjects().add(shape);
                     //check last 3 shapes' colors
 
+                    System.out.println("Right Stack Shape Color: " + shape.getColor());
+                    if(clown.bombGameOver(shape))
+                    {
+                        return timeout;
+                    }
+
                 } else if(outOfWorld(shape)){
                     pool.queueShape(shape);
                     removedShapes.add(shape);
                 }
+
             }
             for (int i = 0; i < removedShapes.size(); i++) {
                 getMovableObjects().remove(removedShapes.get(i));
