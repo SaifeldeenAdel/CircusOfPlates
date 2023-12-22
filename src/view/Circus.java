@@ -31,13 +31,14 @@ public class Circus implements World {
         this.height = screenHeight;
         this.score = new ScoreListener(5);
         this.pool = new ShapePool(width, height, SHAPE_DEATH);
+        constantObjects.add(new ImageObject(0,0,"/backgroundd.jpg", width, height));
         initializeClown();
         initializeShapes();
 //        initializeBars();
     }
 
     public Circus(Difficulty level){
-        this(900, 700, level);
+        this(1000, 700, level);
     }
 
     // Initializes clown object and adds it to our World
@@ -104,7 +105,7 @@ public class Circus implements World {
                 }
             }
 
-            if(clown.getRightStackCenter().x > 820) { //hard-coded value
+            if(clown.getRightStackCenter().x > 920) { //hard-coded value
                 for (GameObject controllableObject : this.controllableObjects) {
                     controllableObject.setX(controllableObject.getX() - 10);
                 }
