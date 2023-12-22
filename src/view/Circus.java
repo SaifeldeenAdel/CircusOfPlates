@@ -119,6 +119,7 @@ public class Circus implements World {
                     clown.addToStack(shape, clown.getLeftStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
+                    shape.setControllable(true);
                     return !clown.bombGameOver(shape);
 
                 }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
@@ -126,14 +127,17 @@ public class Circus implements World {
                     clown.addToStack(shape, clown.getRightStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
+                    shape.setControllable(true);
                     return !clown.bombGameOver(shape);
 
                 } else if(outOfWorld(shape)){
                     pool.queueShape(shape);
+                    shape.setControllable(false);
                     removedShapes.add(shape);
                 }
 
             }
+
             for (int i = 0; i < removedShapes.size(); i++) {
                 getMovableObjects().remove(removedShapes.get(i));
             }
