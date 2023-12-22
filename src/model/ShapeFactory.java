@@ -35,12 +35,12 @@ public class ShapeFactory {
         int randomImageIndex = random.nextInt(mappedClasses.get(randomClass).length);
         BufferedImage randomImage = mappedClasses.get(randomClass)[randomImageIndex];
 
-        if(randomClassIndex == 0)
+        if(randomClass.getName().equals("model.Shapes.Bomb.Bomb")){
             color = ShapeColor.BLACK;
+        }
         else {
             color = randomImageIndex == 0 ? ShapeColor.GREEN : randomImageIndex == 1 ? ShapeColor.BLUE : ShapeColor.RED;
         }
-
 
         Shape shape = null;
         try{

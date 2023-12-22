@@ -92,16 +92,11 @@ public class Circus implements World {
 
     @Override
     public boolean refresh() {
-
-
-
-
         List<GameObject> removedShapes = new ArrayList<>();
         boolean timeout = score.getScore() == MAX_SCORE || System.currentTimeMillis() - startTime > MAX_TIME;
         if(!timeout){
             endTime = System.currentTimeMillis();
             clown.refreshStackCenters();
-
 
             if(clown.getLeftStackCenter().x <70) { //hard-coded value
                 for (GameObject controllableObject : this.controllableObjects) {
@@ -119,32 +114,18 @@ public class Circus implements World {
                 Shape shape = (Shape) movableObjects.get(i);
                 shape.getState().move(shape, this.getLevel());
                 if(clown.intersectsStack(shape, clown.getLeftStackCenter())){
-
-                    System.out.println("Left Stack Shape Color: " + shape.getColor());
                     clown.addToStackCenter(shape, clown.getLeftStackCenter());
                     clown.addToStack(shape, clown.getLeftStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
-                    //check last 3 shapes' colors
-
-                    System.out.println("Left Stack Shape Color: " + shape.getColor());
-                    if(clown.bombGameOver(shape))
-                    {
-                        return timeout;
-                    }
+                    return !clown.bombGameOver(shape);
 
                 }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
                     clown.addToStackCenter(shape, clown.getRightStackCenter());
                     clown.addToStack(shape, clown.getRightStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
-                    //check last 3 shapes' colors
-
-                    System.out.println("Right Stack Shape Color: " + shape.getColor());
-                    if(clown.bombGameOver(shape))
-                    {
-                        return timeout;
-                    }
+                    return !clown.bombGameOver(shape);
 
                 } else if(outOfWorld(shape)){
                     pool.queueShape(shape);
