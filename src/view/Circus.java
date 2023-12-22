@@ -103,26 +103,6 @@ public class Circus implements World {
             clown.refreshStackCenters();
 
 
-            /* FIRST APPROACH */
-            /* Problem: doesn't work when re-adding shapes to controllable */
-
-//            if(clown.getLeftStackCenter().x <60 || clown.getRightStackCenter().x >840) { //hard-coded values
-//                System.out.println("3andena moshkela 3ayzeen ne7elaha");
-//
-//                    List<GameObject> toBeReturned = new LinkedList<>();
-//                    GameObject clownClone;
-//                    toBeReturned.addAll(this.controllableObjects);
-//                    clownClone = toBeReturned.get(0);
-//                    toBeReturned.remove(0);
-//                    this.getConstantObjects().addAll(toBeReturned);
-//                    this.getControlableObjects().removeAll(toBeReturned);
-//                    this.getControlableObjects().add(clownClone);
-//            }
-
-
-            /* SECOND APPROACH */
-            /* Working quite well "so far" */
-
             if(clown.getLeftStackCenter().x <70) { //hard-coded value
                 for (GameObject controllableObject : this.controllableObjects) {
                     controllableObject.setX(controllableObject.getX() + 10);
@@ -134,9 +114,6 @@ public class Circus implements World {
                     controllableObject.setX(controllableObject.getX() - 10);
                 }
             }
-
-
-
 
             for (int i = 0; i < movableObjects.size(); i++) {
                 Shape shape = (Shape) movableObjects.get(i);

@@ -101,7 +101,6 @@ public class Clown extends ImageObject implements GameObject{
 
 
     public void addToStack(Shape s, Stack<Shape> stack){
-        System.out.println(shouldScore(s, stack));
         if(shouldScore(s, stack)){
             s.setVisible(false);
             removeFromStack(stack);

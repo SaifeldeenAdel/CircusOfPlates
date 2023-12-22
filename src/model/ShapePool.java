@@ -55,7 +55,6 @@ public class ShapePool {
         return ShapeFactory.getInstance().getRandomShape(randValueX, randValueY);
     }
     public void queueShape(Shape shape){
-        System.out.println("Added to pool");
         inUse.remove(shape);
         queued.put(shape,System.currentTimeMillis());
     }
