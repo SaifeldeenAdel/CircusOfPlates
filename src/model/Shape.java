@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 public abstract class Shape extends ImageObject  implements GameObject {
     private ShapeState state;
     private ShapeColor color;
+    private boolean isControllable = false;
 
     public Shape(int posX, int posY, BufferedImage[] images, ShapeColor color){
         super(posX, posY, images);
@@ -23,5 +24,15 @@ public abstract class Shape extends ImageObject  implements GameObject {
 
     public void setState(ShapeState state) {
         this.state = state;
+    }
+    public void setControllable(boolean isControllable){
+        this.isControllable = isControllable;
+    }
+
+    @Override
+    public void setY(int mY) {
+        if(this.isControllable)
+            return ;
+        super.setY(mY);
     }
 }

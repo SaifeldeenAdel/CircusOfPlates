@@ -16,7 +16,7 @@ public class ShapePool {
     public ShapePool(int screenWidth, int screenHeight, long deathTime){
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-        this.deathTime = this.deathTime;
+        this.deathTime = deathTime;
         random = new Random();
         inUse = new HashMap<>();
         queued = new HashMap<>();
@@ -55,7 +55,6 @@ public class ShapePool {
         return ShapeFactory.getInstance().getRandomShape(randValueX, randValueY);
     }
     public void queueShape(Shape shape){
-        System.out.println("Added to pool");
         inUse.remove(shape);
         queued.put(shape,System.currentTimeMillis());
     }

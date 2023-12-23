@@ -20,11 +20,12 @@ public class ShapeFactory {
         mappedClasses = shapeLoader.loadFolder();
 
         if (mappedClasses.keySet().isEmpty()){
-            throw new RuntimeException("Shapes cannot be empty. You should add atleast one class to the Shapes folder");
+            throw new RuntimeException("Shapes cannot be empty. You should add at least one class to the Shapes folder");
         }
     }
 
     public Shape getRandomShape(int x, int y) {
+        ShapeColor color;
         Random random = new Random();
         int randomClassIndex = random.nextInt(mappedClasses.size());
 
@@ -33,8 +34,13 @@ public class ShapeFactory {
 
         int randomImageIndex = random.nextInt(mappedClasses.get(randomClass).length);
         BufferedImage randomImage = mappedClasses.get(randomClass)[randomImageIndex];
-        
-        ShapeColor color = randomImageIndex == 0 ? ShapeColor.GREEN : randomImageIndex == 1 ? ShapeColor.BLUE : ShapeColor.RED;
+
+        if(randomClass.getName().equals("model.Shapes.Bomb.Bomb")){
+            color = ShapeColor.BLACK;
+        }
+        else {
+            color = randomImageIndex == 0 ? ShapeColor.GREEN : randomImageIndex == 1 ? ShapeColor.BLUE : ShapeColor.RED;
+        }
 
         Shape shape = null;
         try{

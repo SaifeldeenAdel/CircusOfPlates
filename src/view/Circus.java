@@ -31,13 +31,14 @@ public class Circus implements World {
         this.height = screenHeight;
         this.score = new ScoreListener(5);
         this.pool = new ShapePool(width, height, SHAPE_DEATH);
+        constantObjects.add(new ImageObject(0,0,"/backgroundd.jpg", width, height));
         initializeClown();
         initializeShapes();
 //        initializeBars();
     }
 
     public Circus(Difficulty level){
-        this(900, 700, level);
+        this(1000, 700, level);
     }
 
     // Initializes clown object and adds it to our World
@@ -92,36 +93,11 @@ public class Circus implements World {
 
     @Override
     public boolean refresh() {
-
-
-
-
         List<GameObject> removedShapes = new ArrayList<>();
         boolean timeout = score.getScore() == MAX_SCORE || System.currentTimeMillis() - startTime > MAX_TIME;
         if(!timeout){
             endTime = System.currentTimeMillis();
             clown.refreshStackCenters();
-
-
-            /* FIRST APPROACH */
-            /* Problem: doesn't work when re-adding shapes to controllable */
-
-//            if(clown.getLeftStackCenter().x <60 || clown.getRightStackCenter().x >840) { //hard-coded values
-//                System.out.println("3andena moshkela 3ayzeen ne7elaha");
-//
-//                    List<GameObject> toBeReturned = new LinkedList<>();
-//                    GameObject clownClone;
-//                    toBeReturned.addAll(this.controllableObjects);
-//                    clownClone = toBeReturned.get(0);
-//                    toBeReturned.remove(0);
-//                    this.getConstantObjects().addAll(toBeReturned);
-//                    this.getControlableObjects().removeAll(toBeReturned);
-//                    this.getControlableObjects().add(clownClone);
-//            }
-
-
-            /* SECOND APPROACH */
-            /* Working quite well "so far" */
 
             if(clown.getLeftStackCenter().x <70) { //hard-coded value
                 for (GameObject controllableObject : this.controllableObjects) {
@@ -129,14 +105,11 @@ public class Circus implements World {
                 }
             }
 
-            if(clown.getRightStackCenter().x > 820) { //hard-coded value
+            if(clown.getRightStackCenter().x > 920) { //hard-coded value
                 for (GameObject controllableObject : this.controllableObjects) {
                     controllableObject.setX(controllableObject.getX() - 10);
                 }
             }
-
-
-
 
             for (int i = 0; i < movableObjects.size(); i++) {
                 Shape shape = (Shape) movableObjects.get(i);
@@ -146,20 +119,25 @@ public class Circus implements World {
                     clown.addToStack(shape, clown.getLeftStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
-                    //check last 3 shapes' colors
+                    shape.setControllable(true);
+                    return !clown.bombGameOver(shape);
 
                 }else if(clown.intersectsStack(shape, clown.getRightStackCenter())){
                     clown.addToStackCenter(shape, clown.getRightStackCenter());
                     clown.addToStack(shape, clown.getRightStack());
                     getMovableObjects().remove(shape);
                     getControlableObjects().add(shape);
-                    //check last 3 shapes' colors
+                    shape.setControllable(true);
+                    return !clown.bombGameOver(shape);
 
                 } else if(outOfWorld(shape)){
                     pool.queueShape(shape);
+                    shape.setControllable(false);
                     removedShapes.add(shape);
                 }
+
             }
+
             for (int i = 0; i < removedShapes.size(); i++) {
                 getMovableObjects().remove(removedShapes.get(i));
             }
