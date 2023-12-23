@@ -31,7 +31,7 @@ public class Circus implements World {
         this.height = screenHeight;
         this.score = new ScoreListener(5);
         this.pool = new ShapePool(width, height, SHAPE_DEATH);
-        constantObjects.add(new ImageObject(0,0,"/backgroundd.jpg", width, height));
+        constantObjects.add(new ImageObject(0,0,"/bg.jpg", width, height));
         initializeClown();
         initializeShapes();
 //        initializeBars();
